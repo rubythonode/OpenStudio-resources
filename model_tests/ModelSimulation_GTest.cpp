@@ -1771,4 +1771,11 @@ TEST_F(ModelSimulationFixture, zone_control_contaminant_controller_rb) {
   EXPECT_LT(*hoursHeatingSetpointNotMet, 350);
 }
 
+TEST_F(ModelSimulationFixture, EMS_rb) {
+  openstudio::SqlFile sql = runSimulation("EMS.rb");
+
+  //boost::optional<double> hoursHeatingSetpointNotMet = sql.hoursHeatingSetpointNotMet();
+  //ASSERT_TRUE(hoursHeatingSetpointNotMet);
+  //EXPECT_LT(*hoursHeatingSetpointNotMet, 350);
+}
 
