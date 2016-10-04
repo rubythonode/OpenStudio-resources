@@ -38,10 +38,10 @@ model.add_design_days()
     output_var_oat = OpenStudio::Model::OutputVariable.new(output_var, model)
 
    # Create a sensor to sense the outdoor air temperature
-    oat_sensor = OpenStudio::Model::EnergyManagementSystemSensor.new(model)
+    oat_sensor = OpenStudio::Model::EnergyManagementSystemSensor.new(model, output_var_oat)
     oat_sensor_name = "OATdb Sensor"
     oat_sensor.setName(oat_sensor_name)
-    oat_sensor.setOutputVariable(output_var_oat)
+    #oat_sensor.setOutputVariable(output_var_oat)
 
    # Actuator ###
 
@@ -51,12 +51,14 @@ model.add_design_days()
     fan = OpenStudio::Model::FanConstantVolume.new(model,always_on)
 
    # Create an actuator to set the fan pressure rise
-    fan_actuator = OpenStudio::Model::EnergyManagementSystemActuator.new(fan)
+    componentControlType = "Fan Pressure Rise"
+    componentType = "fan"
+    fan_actuator = OpenStudio::Model::EnergyManagementSystemActuator.new(fan, "fan", componentControlType)
     fan_actuator.setName("#{fan.name} Press Actuator")
-    fan_press = "Fan Pressure Rise"
-    fan_actuator.setActuatedComponentControlType(fan_press)
-    fan_actuator.setActuatedComponentType("fan")
-    fan_actuator.setActuatedComponent(fan)
+    #fan_actuator.setActuatedComponentControlType(componentControlType)
+    #fan_actuator.setActuatedComponentType(componentType)
+    #fan_actuator.setActuatedComponent(fan)
+    
     ## Program ###
 
     # Create a program all at once
